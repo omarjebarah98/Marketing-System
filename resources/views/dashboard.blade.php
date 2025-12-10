@@ -47,7 +47,7 @@
                     @foreach($stats['campaigns'] as $campaign)
                         <tr>
                             <td>{{ $campaign['title'] }}</td>
-                            <td>{{ $campaign['template']['name'] ?? 'N/A' }}</td>
+                            <td>{{ $campaign['template'] ?? 'N/A' }}</td>
                             <td>{{ $campaign['start_date'] }}</td>
                             <td>{{ $campaign['end_date'] }}</td>
                             <td>{{ $campaign['status'] }}</td>
@@ -91,11 +91,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.Echo) {
         window.Echo.channel('campaigns')
             .listen('CampaignStatusUpdated', (e) => {
-                console.log('Campaign updated:', e);
                 alert(`Campaign "${e.title}" status changed to ${e.status}`);
             });
     } else {
-        console.error('Echo is not initialized.');
+        console.error('Something went wrong');
     }
 });
 </script>

@@ -23,11 +23,9 @@ class CampaignResource extends JsonResource
             'end_date' => $this->end_date,
             'status' => $this->status,
 
-            // eager loaded relations
             'template' => new TemplateResource($this->whenLoaded('template')),
             'sends' => CampaignSendResource::collection($this->whenLoaded('sends')),
 
-            // computed stats
             'statistics' => [
                 'total_sent' => $this->sends->count(),
                 'delivered'  => $this->sends->where('status', 'delivered')->count(),

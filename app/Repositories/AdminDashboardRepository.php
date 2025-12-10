@@ -18,7 +18,6 @@ class AdminDashboardRepository
         $pausedCampaigns = Campaign::where('status', 'paused')->count();
         $completedCampaigns = Campaign::where('status', 'completed')->count();
 
-        // Fetch campaigns with sends for detailed statistics
         $campaigns = Campaign::with('sends')->get();
 
         $campaignStats = $campaigns->map(function ($campaign) {
@@ -33,6 +32,7 @@ class AdminDashboardRepository
                 'id' => $campaign->id,
                 'title' => $campaign->title,
                 'status' => $campaign->status,
+                'template' => $campaign->template->name,
                 'total_sent' => $totalSent,
                 'delivered' => $delivered,
                 'failed' => $failed,
