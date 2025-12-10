@@ -54,9 +54,11 @@ php artisan migrate --seed
 
 ## Start Laravel server:
 
-php artisan serve
-
 npm run dev (for echo and pusher)
+
+php artisan queue:work
+
+php artisan serve
 
 --------------------------------
 
