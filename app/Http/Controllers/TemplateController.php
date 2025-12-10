@@ -42,6 +42,11 @@ class TemplateController extends Controller
         return response()->json(['message'=>'Template deleted successfully']);
     }
 
+    public function restore($id) {
+        $this->templateService->restoreTemplate($id);
+        return response()->json(['message'=>'Template restored successfully']);
+    }
+
     public function render(Request $request, $id)
     {
         $template = $this->templateService->getTemplate($id);

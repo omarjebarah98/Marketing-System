@@ -18,23 +18,23 @@ class CampaignController extends Controller
     }
 
     public function index() {
-        $templates = $this->campaignService->getAllCampaigns();
-        return CampaignResource::collection($templates);
+        $campaigns = $this->campaignService->getAllCampaigns();
+        return CampaignResource::collection($campaigns);
     }
 
     public function store(StoreCampaignRequest $request) {
-        $template = $this->campaignService->createCampaign($request->validated());
-        return new CampaignResource($template);
+        $campaign = $this->campaignService->createCampaign($request->validated());
+        return new CampaignResource($campaign);
     }
 
     public function show($id) {
-        $template = $this->campaignService->getCampaign($id);
-        return new CampaignResource($template);
+        $campaign = $this->campaignService->getCampaign($id);
+        return new CampaignResource($campaign);
     }
 
     public function update($id, StoreCampaignRequest $request) {
-        $template = $this->campaignService->editCampaign($id, $request->validated());
-        return new CampaignResource($template);
+        $campaign = $this->campaignService->editCampaign($id, $request->validated());
+        return new CampaignResource($campaign);
     }
 
     public function destroy($id) {
@@ -42,8 +42,7 @@ class CampaignController extends Controller
         return response()->json(['message'=>'Campaign deleted successfully']);
     }
 
-    public function statistics($id)
-    {
+    public function statistics($id) {
         $campaign = $this->campaignService->getCampaign($id);
         return new CampaignResource($campaign);
     }
@@ -58,12 +57,15 @@ class CampaignController extends Controller
         return redirect()->back();
     }
 
-    public function deleteCampaign($id)
-    {
-        $campaign = Campaign::findOrFail($id);
-        $campaign->delete();
+    public function deleteCampaign($id) {
+        $this->campaignService->deleteCampaign($id);
 
         return redirect()->back()->with('success', 'Campaign deleted successfully.');
+    }
+
+    public function restore($id) {
+        $this->campaignService->restoreCampaign($id);
+        return response()->json(['message'=>'Campaign restored successfully']);
     }
 
 }

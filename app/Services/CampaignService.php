@@ -42,4 +42,13 @@ class CampaignService {
 
         return $this->campaignRepo->delete($id);
     }
+
+    public function restoreCampaign($id) {
+        $campaign = $this->campaignRepo->findTrashedById($id);
+        if(!$campaign) {
+            throw new ModelNotFoundException("Campaign not found");
+        }
+
+        return $this->campaignRepo->restore($id);
+    }
 }

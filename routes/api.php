@@ -29,7 +29,11 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('templates', TemplateController::class);
     Route::post('/templates/{id}/render', [TemplateController::class, 'render']);
+    Route::post('/templates/{id}/restore', [TemplateController::class, 'restore']);
+
 
     Route::apiResource('campaigns', CampaignController::class);
     Route::get('campaigns/{id}/statistics', [CampaignController::class, 'statistics']);
+    Route::post('/campaigns/{id}/restore', [CampaignController::class, 'restore']);
+
 });

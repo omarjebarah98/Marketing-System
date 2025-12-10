@@ -31,4 +31,12 @@ class CampaignRepository implements CampaignRepositoryInterface {
         $campaign = $this->getCampaignsById($id);
         return $campaign->delete();
     }
+    public function findTrashedById($id) {
+        $deletedCampaign = $this->model->onlyTrashed()->find($id);
+        return $deletedCampaign;
+    }
+    public function restore(int $id) {
+        $campaign = $this->model->onlyTrashed()->find($id);
+        return $campaign->restore();
+    }
 }

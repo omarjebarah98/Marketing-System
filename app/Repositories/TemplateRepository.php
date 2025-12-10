@@ -31,4 +31,12 @@ class TemplateRepository implements TemplateRepositoryInterface {
         $template = $this->getTemplateById($id);
         return $template->delete();
     }
+    public function findTrashedById($id) {
+        $deletedTemplate = $this->model->onlyTrashed()->find($id);
+        return $deletedTemplate;
+    }
+    public function restore(int $id) {
+        $template = $this->model->onlyTrashed()->find($id);
+        return $template->restore();
+    }
 }

@@ -42,4 +42,13 @@ class TemplateService {
 
         return $this->templateRepo->delete($id);
     }
+
+    public function restoreTemplate($id) {
+        $template = $this->templateRepo->findTrashedById($id);
+        if(!$template) {
+            throw new ModelNotFoundException("Template not found");
+        }
+
+        return $this->templateRepo->restore($id);
+    }
 }

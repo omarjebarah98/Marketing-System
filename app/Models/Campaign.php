@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Campaign extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = ['template_id', 'title', 'description', 'target_audience', 'start_date', 'end_date', 'status'];
-    protected $dates = ['start_date', 'end_date'];
+    protected $dates = ['start_date', 'end_date', 'deleted_at'];
 
     public function template() {
         return $this->belongsTo(Template::class);
