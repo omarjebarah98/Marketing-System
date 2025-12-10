@@ -85,3 +85,18 @@
         </div>
     </div>
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.Echo) {
+        window.Echo.channel('campaigns')
+            .listen('CampaignStatusUpdated', (e) => {
+                console.log('Campaign updated:', e);
+                alert(`Campaign "${e.title}" status changed to ${e.status}`);
+            });
+    } else {
+        console.error('Echo is not initialized.');
+    }
+});
+</script>
+

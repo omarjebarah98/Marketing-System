@@ -7,6 +7,7 @@ use App\Http\Resources\CampaignResource;
 use App\Http\Requests\StoreCampaignRequest;
 use Illuminate\Http\Request;
 use App\Models\Campaign;
+use App\Events\CampaignStatusUpdated;
 
 class CampaignController extends Controller
 {
@@ -51,6 +52,9 @@ class CampaignController extends Controller
         $campaign = Campaign::findOrFail($id);
         $request->validate(['status' => 'required|in:draft,active,paused,completed']);
         $campaign->update(['status' => $request->status]);
+
+        event(new CampaignStatusUpdated($campaign));
+
         return redirect()->back();
     }
 
