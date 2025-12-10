@@ -26,6 +26,7 @@
 
         <div class="row mt-4">
             <h3>Campaign Statistics</h3>
+
             <table class="table table-bordered mt-2">
                 <thead>
                     <tr>
@@ -75,6 +76,25 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                         Delete
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="GET" action="{{ route('campaigns.export.csv', $campaign['id']) }}"
+                                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+
+                                    @method('GET')
+                                    <button type="submit" class="btn btn-sm btn-succes">
+                                        Export CSV
+                                    </button>
+                                </form>
+
+                                <form method="GET" action="{{ route('campaigns.export.pdf', $campaign['id']) }}"
+                                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+
+                                    @method('GET')
+                                    <button type="submit" class="btn btn-sm btn-submit">
+                                        Export PDF
                                     </button>
                                 </form>
                             </td>

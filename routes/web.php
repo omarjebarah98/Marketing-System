@@ -32,3 +32,9 @@ Route::delete('/campaigns/{id}', [CampaignController::class, 'deleteCampaign'])-
 
 Route::post('/logout', [AuthController::class, 'logoutWeb'])->name('logout');
 
+Route::get('campaigns/{id}/export/csv', [CampaignController::class, 'exportCsv'])
+    ->name('campaigns.export.csv');
+
+Route::get('campaigns/{id}/export/pdf', [CampaignController::class, 'exportPdf'])
+    ->name('campaigns.export.pdf');
+

@@ -8,6 +8,10 @@ use App\Http\Requests\StoreCampaignRequest;
 use Illuminate\Http\Request;
 use App\Models\Campaign;
 use App\Jobs\CampaignStatusJob;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CampaignStatisticsExport;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class CampaignController extends Controller
 {
@@ -66,6 +70,26 @@ class CampaignController extends Controller
     public function restore($id) {
         $this->campaignService->restoreCampaign($id);
         return response()->json(['message'=>'Campaign restored successfully']);
+    }
+
+    public function exportCsv($id) {
+
+        $campaign = Campaign::findOrFail($id);
+
+        $fileName = "campaign_{$campaign->title}_stats_" . now()->format('Ymd_His') . ".csv";
+
+        return Excel::download(new CampaignStatisticsExport($campaign), $fileName);
+    }
+
+    public function exportPdf($id) {
+
+        $campaign = Campaign::findOrFail($id);
+
+        $fileName = "campaign_{$campaign->title}_stats_" . now()->format('Ymd_His') . ".pdf";
+
+        $pdf = Pdf::loadView('exports.campaignStatistics', compact('campaign'));
+
+        return $pdf->download($fileName);
     }
 
 }
